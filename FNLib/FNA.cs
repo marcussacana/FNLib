@@ -98,7 +98,12 @@ namespace FNLib
                         }
 
                         ref var Glyph = ref Table.Gylphs[i];
-                        Glyph.Data = new VirtStream(Input, Glyph.TextureOffset, Glyph.TextureSize);
+                        
+                        if (Glyph.TextureOffset != 0)
+                            Glyph.Data = new VirtStream(Input, Glyph.TextureOffset, Glyph.TextureSize);
+                        else
+                            Glyph.Data = null;
+
                         Glyph.Char = IndexToChar(i);
                         Glyph.CreateTexture(Table.Height);
                     }
@@ -146,12 +151,20 @@ namespace FNLib
 
                             ref var Glyph = ref Table.Gylphs[i];
 
-                            Glyph.Data.Position = 0;
+                            if (Glyph.Texture.Changed)
+                                Glyph.FlushTexture();
+
+                            if (Glyph.Data == null || Glyph.Data.Length == 0)
+                            {
+                                Glyph.TextureOffset = 0;
+                                Glyph.TextureSize = 0;
+                                continue;
+                            }
+
                             Glyph.TextureOffset = TextureOffset;
                             Glyph.TextureSize = (uint)Glyph.Data.Length;
 
-                            if (Glyph.Texture.Changed)
-                                Glyph.FlushTexture();
+                            Glyph.Data.Position = 0;
 
                             TextureOffset += Glyph.TextureSize;
 
@@ -225,6 +238,8 @@ namespace FNLib
             var lGlyph = Glyph;
             Glyph.Texture = new JITBitmap(() =>
             {
+                if (lGlyph.Data == null)
+                    return null;
                 var Data = lGlyph.Data.ToDecompressor().ToByteArray();
                 return ReadTexture(Data, Height);
             }, null, null);
@@ -238,7 +253,6 @@ namespace FNLib
             byte[] Buffer = WriteTexture(Glyph.Texture);
 
             Glyph.Data = new MemoryStream(Buffer.Compress());
-            Glyph.TextureSize = (uint)Glyph.Data.Length;
         }
 
         unsafe static Bitmap ReadTexture(byte[] Data, int Height)

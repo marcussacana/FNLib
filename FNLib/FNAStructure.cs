@@ -13,10 +13,10 @@ namespace FNLib
         public uint TextureOffset;
 
         [PArray, StructField]
-        public FontEntry[] Fonts;
+        public FNAStructure[] Fonts;
     };
 
-    public struct FontEntry
+    public struct FNAStructure
     {
         [PArray, StructField]
         public FontTable[] Tables;

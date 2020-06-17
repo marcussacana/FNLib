@@ -81,7 +81,7 @@ namespace FNLib
 
         public void SetBitmap(Bitmap NewBitmap)
         {
-            if (Base.PixelFormat != NewBitmap.PixelFormat)
+            if (Base != null && Base.PixelFormat != NewBitmap.PixelFormat)
                 throw new Exception($"You must use the {Base.PixelFormat} in this object");
 
             _Base = NewBitmap;

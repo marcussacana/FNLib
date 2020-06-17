@@ -49,7 +49,7 @@
     <Compile Include="FNA.cs" />
     <Compile Include="JITBitmap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FontEntry.cs" />
+    <Compile Include="FNAStructure.cs" />
     <Compile Include="StructStream.cs" />
     <Compile Include="VirtStream.cs" />
     <Compile Include="Zlib\Adler32.cs" />
