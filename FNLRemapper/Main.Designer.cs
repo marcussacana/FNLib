@@ -41,6 +41,7 @@
             this.lblTable = new System.Windows.Forms.Label();
             this.cbTable = new System.Windows.Forms.ComboBox();
             this.pnFontMenu = new System.Windows.Forms.Panel();
+            this.cbFont = new System.Windows.Forms.ComboBox();
             this.lblSize = new System.Windows.Forms.Label();
             this.tbSize = new System.Windows.Forms.TextBox();
             this.lblFont = new System.Windows.Forms.Label();
@@ -52,7 +53,8 @@
             this.tbVirtChars = new System.Windows.Forms.TextBox();
             this.lblPhysChars = new System.Windows.Forms.Label();
             this.tbPhysChars = new System.Windows.Forms.TextBox();
-            this.cbFont = new System.Windows.Forms.ComboBox();
+            this.lblPadding = new System.Windows.Forms.Label();
+            this.tbPaddingRigth = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Preview)).BeginInit();
             this.pnFontMenu.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +67,7 @@
             this.Preview.BackColor = System.Drawing.Color.Black;
             this.Preview.Location = new System.Drawing.Point(12, 12);
             this.Preview.Name = "Preview";
-            this.Preview.Size = new System.Drawing.Size(887, 158);
+            this.Preview.Size = new System.Drawing.Size(905, 145);
             this.Preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.Preview.TabIndex = 0;
             this.Preview.TabStop = false;
@@ -77,7 +79,7 @@
             this.Progress.Location = new System.Drawing.Point(15, 322);
             this.Progress.MarqueeAnimationSpeed = 10;
             this.Progress.Name = "Progress";
-            this.Progress.Size = new System.Drawing.Size(887, 23);
+            this.Progress.Size = new System.Drawing.Size(905, 23);
             this.Progress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.Progress.TabIndex = 1;
             this.Progress.Value = 50;
@@ -85,8 +87,7 @@
             // 
             // btnOpenFont
             // 
-            this.btnOpenFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenFont.Location = new System.Drawing.Point(809, 7);
+            this.btnOpenFont.Location = new System.Drawing.Point(827, 34);
             this.btnOpenFont.Name = "btnOpenFont";
             this.btnOpenFont.Size = new System.Drawing.Size(75, 23);
             this.btnOpenFont.TabIndex = 3;
@@ -105,9 +106,9 @@
             // 
             this.tbPreview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPreview.Location = new System.Drawing.Point(12, 202);
+            this.tbPreview.Location = new System.Drawing.Point(12, 176);
             this.tbPreview.Name = "tbPreview";
-            this.tbPreview.Size = new System.Drawing.Size(887, 20);
+            this.tbPreview.Size = new System.Drawing.Size(905, 20);
             this.tbPreview.TabIndex = 0;
             this.tbPreview.Text = "The lazy dog jumps over the quick brown fox";
             this.tbPreview.TextChanged += new System.EventHandler(this.RefreshPreview);
@@ -116,7 +117,7 @@
             // 
             this.lblPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblPreview.AutoSize = true;
-            this.lblPreview.Location = new System.Drawing.Point(12, 186);
+            this.lblPreview.Location = new System.Drawing.Point(12, 160);
             this.lblPreview.Name = "lblPreview";
             this.lblPreview.Size = new System.Drawing.Size(48, 13);
             this.lblPreview.TabIndex = 4;
@@ -129,7 +130,6 @@
             // 
             // cbFace
             // 
-            this.cbFace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbFace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFace.Enabled = false;
             this.cbFace.FormattingEnabled = true;
@@ -141,7 +141,6 @@
             // 
             // lblFace
             // 
-            this.lblFace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFace.AutoSize = true;
             this.lblFace.Location = new System.Drawing.Point(3, 12);
             this.lblFace.Name = "lblFace";
@@ -151,7 +150,6 @@
             // 
             // lblTable
             // 
-            this.lblTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTable.AutoSize = true;
             this.lblTable.Location = new System.Drawing.Point(109, 12);
             this.lblTable.Name = "lblTable";
@@ -161,7 +159,6 @@
             // 
             // cbTable
             // 
-            this.cbTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTable.Enabled = false;
             this.cbTable.FormattingEnabled = true;
@@ -175,6 +172,8 @@
             // 
             this.pnFontMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnFontMenu.Controls.Add(this.tbPaddingRigth);
+            this.pnFontMenu.Controls.Add(this.lblPadding);
             this.pnFontMenu.Controls.Add(this.cbFont);
             this.pnFontMenu.Controls.Add(this.lblSize);
             this.pnFontMenu.Controls.Add(this.tbSize);
@@ -187,16 +186,27 @@
             this.pnFontMenu.Controls.Add(this.lblFace);
             this.pnFontMenu.Controls.Add(this.lblTable);
             this.pnFontMenu.Controls.Add(this.cbFace);
-            this.pnFontMenu.Location = new System.Drawing.Point(12, 312);
+            this.pnFontMenu.Location = new System.Drawing.Point(12, 280);
             this.pnFontMenu.Name = "pnFontMenu";
-            this.pnFontMenu.Size = new System.Drawing.Size(887, 33);
+            this.pnFontMenu.Size = new System.Drawing.Size(905, 65);
             this.pnFontMenu.TabIndex = 9;
+            // 
+            // cbFont
+            // 
+            this.cbFont.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbFont.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbFont.FormattingEnabled = true;
+            this.cbFont.Location = new System.Drawing.Point(43, 36);
+            this.cbFont.Name = "cbFont";
+            this.cbFont.Size = new System.Drawing.Size(165, 21);
+            this.cbFont.Sorted = true;
+            this.cbFont.TabIndex = 15;
+            this.cbFont.Text = "Consolas";
             // 
             // lblSize
             // 
-            this.lblSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSize.AutoSize = true;
-            this.lblSize.Location = new System.Drawing.Point(538, 12);
+            this.lblSize.Location = new System.Drawing.Point(214, 39);
             this.lblSize.Name = "lblSize";
             this.lblSize.Size = new System.Drawing.Size(30, 13);
             this.lblSize.TabIndex = 14;
@@ -204,7 +214,7 @@
             // 
             // tbSize
             // 
-            this.tbSize.Location = new System.Drawing.Point(574, 9);
+            this.tbSize.Location = new System.Drawing.Point(250, 36);
             this.tbSize.Name = "tbSize";
             this.tbSize.Size = new System.Drawing.Size(44, 20);
             this.tbSize.TabIndex = 13;
@@ -212,9 +222,8 @@
             // 
             // lblFont
             // 
-            this.lblFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFont.AutoSize = true;
-            this.lblFont.Location = new System.Drawing.Point(384, 12);
+            this.lblFont.Location = new System.Drawing.Point(6, 39);
             this.lblFont.Name = "lblFont";
             this.lblFont.Size = new System.Drawing.Size(31, 13);
             this.lblFont.TabIndex = 12;
@@ -223,9 +232,9 @@
             // btnRedraw
             // 
             this.btnRedraw.Enabled = false;
-            this.btnRedraw.Location = new System.Drawing.Point(314, 7);
+            this.btnRedraw.Location = new System.Drawing.Point(317, 7);
             this.btnRedraw.Name = "btnRedraw";
-            this.btnRedraw.Size = new System.Drawing.Size(64, 23);
+            this.btnRedraw.Size = new System.Drawing.Size(93, 23);
             this.btnRedraw.TabIndex = 10;
             this.btnRedraw.Text = "Redraw";
             this.btnRedraw.UseVisualStyleBackColor = true;
@@ -234,7 +243,7 @@
             // btnRedrawTables
             // 
             this.btnRedrawTables.Enabled = false;
-            this.btnRedrawTables.Location = new System.Drawing.Point(214, 7);
+            this.btnRedrawTables.Location = new System.Drawing.Point(217, 7);
             this.btnRedrawTables.Name = "btnRedrawTables";
             this.btnRedrawTables.Size = new System.Drawing.Size(94, 23);
             this.btnRedrawTables.TabIndex = 8;
@@ -244,9 +253,8 @@
             // 
             // btnSaveFont
             // 
-            this.btnSaveFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveFont.Enabled = false;
-            this.btnSaveFont.Location = new System.Drawing.Point(728, 7);
+            this.btnSaveFont.Location = new System.Drawing.Point(827, 7);
             this.btnSaveFont.Name = "btnSaveFont";
             this.btnSaveFont.Size = new System.Drawing.Size(75, 23);
             this.btnSaveFont.TabIndex = 4;
@@ -265,7 +273,7 @@
             // 
             this.lblVirtChars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblVirtChars.AutoSize = true;
-            this.lblVirtChars.Location = new System.Drawing.Point(12, 225);
+            this.lblVirtChars.Location = new System.Drawing.Point(12, 199);
             this.lblVirtChars.Name = "lblVirtChars";
             this.lblVirtChars.Size = new System.Drawing.Size(93, 13);
             this.lblVirtChars.TabIndex = 11;
@@ -275,9 +283,9 @@
             // 
             this.tbVirtChars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbVirtChars.Location = new System.Drawing.Point(12, 241);
+            this.tbVirtChars.Location = new System.Drawing.Point(12, 215);
             this.tbVirtChars.Name = "tbVirtChars";
-            this.tbVirtChars.Size = new System.Drawing.Size(887, 20);
+            this.tbVirtChars.Size = new System.Drawing.Size(905, 20);
             this.tbVirtChars.TabIndex = 1;
             this.tbVirtChars.Text = " 0123456789ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz\'\"+-;:.,[]()!?%¿Ññ" +
     "ôòÕÛÔÎÊÌÍÁÉÈÂÇÒÓìèÙÚùâàêçõãíáéóúÀËëÎîÏûüÜœæ";
@@ -287,7 +295,7 @@
             // 
             this.lblPhysChars.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblPhysChars.AutoSize = true;
-            this.lblPhysChars.Location = new System.Drawing.Point(12, 264);
+            this.lblPhysChars.Location = new System.Drawing.Point(12, 238);
             this.lblPhysChars.Name = "lblPhysChars";
             this.lblPhysChars.Size = new System.Drawing.Size(103, 13);
             this.lblPhysChars.TabIndex = 13;
@@ -297,32 +305,36 @@
             // 
             this.tbPhysChars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPhysChars.Location = new System.Drawing.Point(12, 280);
+            this.tbPhysChars.Location = new System.Drawing.Point(12, 254);
             this.tbPhysChars.Name = "tbPhysChars";
-            this.tbPhysChars.Size = new System.Drawing.Size(887, 20);
+            this.tbPhysChars.Size = new System.Drawing.Size(905, 20);
             this.tbPhysChars.TabIndex = 2;
             this.tbPhysChars.Text = "------------------------------------------------------------------------------ﾐｰｯ" +
     "ﾔﾒｵｻｴｮｪｬｭ｡ｩｨｫｧｲｳﾌﾈｹｺﾙﾂﾀﾊﾇﾕﾃﾍﾁﾉﾓﾚｦｱｶｷｸｼｾｿﾄﾆﾋ";
             this.tbPhysChars.Enter += new System.EventHandler(this.OnPhysicalFocused);
             // 
-            // cbFont
+            // lblPadding
             // 
-            this.cbFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cbFont.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbFont.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbFont.FormattingEnabled = true;
-            this.cbFont.Location = new System.Drawing.Point(421, 9);
-            this.cbFont.Name = "cbFont";
-            this.cbFont.Size = new System.Drawing.Size(111, 21);
-            this.cbFont.Sorted = true;
-            this.cbFont.TabIndex = 15;
-            this.cbFont.Text = "Consolas";
+            this.lblPadding.AutoSize = true;
+            this.lblPadding.Location = new System.Drawing.Point(300, 39);
+            this.lblPadding.Name = "lblPadding";
+            this.lblPadding.Size = new System.Drawing.Size(60, 13);
+            this.lblPadding.TabIndex = 16;
+            this.lblPadding.Text = "Padding R:";
+            // 
+            // tbPadding
+            // 
+            this.tbPaddingRigth.Location = new System.Drawing.Point(366, 36);
+            this.tbPaddingRigth.Name = "tbPadding";
+            this.tbPaddingRigth.Size = new System.Drawing.Size(44, 20);
+            this.tbPaddingRigth.TabIndex = 17;
+            this.tbPaddingRigth.Text = "0";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 357);
+            this.ClientSize = new System.Drawing.Size(929, 357);
             this.Controls.Add(this.lblPhysChars);
             this.Controls.Add(this.tbPhysChars);
             this.Controls.Add(this.lblVirtChars);
@@ -368,6 +380,8 @@
         private System.Windows.Forms.Label lblFont;
         private System.Windows.Forms.ComboBox cbTable;
         private System.Windows.Forms.ComboBox cbFont;
+        private System.Windows.Forms.TextBox tbPaddingRigth;
+        private System.Windows.Forms.Label lblPadding;
     }
 }
 

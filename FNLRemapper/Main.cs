@@ -215,6 +215,7 @@ namespace FNLRemapper
                 return null;
             }
 
+            var PaddingRigth = int.Parse(tbPaddingRigth.Text);
             var RemapList = "";
             var FSize = float.Parse(tbSize.Text) + SizeExtension;
             var Family = FontFamily.Families.Where(x => x.Name.ToLower().Trim() == cbFont.Text.ToLower().Trim()).Single();
@@ -264,14 +265,14 @@ namespace FNLRemapper
                 if (char.IsWhiteSpace(VisibleChar))
                     continue;
 
-                var Fixed = FixCharacter(Buffer, Table.Height, Table.PaddingBottom - GlyphBottomOverflow, out int Width);
+                var Fixed = FixCharacter(Buffer, Table.Height, Table.PaddingBottom - GlyphBottomOverflow, PaddingRigth, out int Width);
 
                 int x = GetGlyphIndex(Glyphs, RealChar);
 
                 if (x == -1)
                     throw new Exception($"The {RealChar} Glyph Not Found in the Font");
 
-                Glyphs[x].Width = (ushort)Width;
+                Glyphs[x].Width = (ushort)(Width);
                 Glyphs[x].Texture.SetBitmap(Fixed ?? Buffer);
             }
 
@@ -302,7 +303,7 @@ namespace FNLRemapper
             return Bitmap.Height;
         }
 
-        static Bitmap FixCharacter(Bitmap source, int Height, int Bottom, out int Width)
+        static Bitmap FixCharacter(Bitmap source, int Height, int Bottom, int PaddingRigth, out int Width)
         {
             Width = source.Width;
             bool Empty = true;
@@ -386,7 +387,7 @@ namespace FNLRemapper
             if (Empty)
                 return null;
 
-            Width = srcRect.Width;
+            Width = srcRect.Width + PaddingRigth;
 
             using (Bitmap dest = new Bitmap(Width, Height, PixelFormat.Format24bppRgb))
             {
