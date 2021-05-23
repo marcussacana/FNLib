@@ -22,6 +22,7 @@ namespace FNLRemapper
             InitializeComponent();
 
             cbFont.Items.AddRange(FontFamily.Families.Select((a) => a.Name).ToArray());
+            cbFontType.SelectedIndex = 2;
         }
 
         private void btnOpenFont_Click(object sender, EventArgs e)
@@ -184,10 +185,10 @@ namespace FNLRemapper
         private void btnRedrawFaces_Click(object sender, EventArgs e)
         {
             string RemapList = null;
-            for (int i = 0; i < FontInfo.Fonts[SelectedFont].Tables.Length; i++)
+            for (int i = SelectedTable; i < FontInfo.Fonts[SelectedFont].Tables.Length; i++)
             {
                 SelectedTable = cbTable.SelectedIndex = i;
-                RemapList = RedrawTable(i * 4.5f);
+                RemapList = RedrawTable(i * 4.5f, i);
                 Application.DoEvents();
             }
             RefreshPreview(null, null);
@@ -196,12 +197,12 @@ namespace FNLRemapper
         }
         private void btnRedraw_Click(object sender, EventArgs e)
         {
-            var RemapList = RedrawTable(0);
+            var RemapList = RedrawTable(0, SelectedTable);
             RefreshPreview(null, null);
             Clipboard.SetText(RemapList);
             MessageBox.Show("Your character remap list has been copied to the clipboard.", "Your Remap List");
         }
-        private string RedrawTable(float SizeExtension)
+        private string RedrawTable(float SizeExtension, int Factor)
         {
             ref var Table = ref FontInfo.Fonts[SelectedFont].Tables[SelectedTable];
             ref var Glyphs = ref Table.Gylphs;
@@ -219,8 +220,22 @@ namespace FNLRemapper
             var RemapList = "";
             var FSize = float.Parse(tbSize.Text) + SizeExtension;
             var Family = FontFamily.Families.Where(x => x.Name.ToLower().Trim() == cbFont.Text.ToLower().Trim()).Single();
-            var Style = GetBestFamilyStyle(Family);
+            var Style = GetBestFamilyStyle(Family, cbFontType.SelectedIndex switch { 
+                0 => FontStyle.Bold,
+                1 => FontStyle.Italic,
+                2 => FontStyle.Regular,
+                3 => FontStyle.Underline,
+                _ => FontStyle.Regular
+            });
+
             var Font = new Font(Family, FSize, Style, GraphicsUnit.Pixel);
+
+            if (ckAutoPadding.Checked)
+            {
+                var ASize = FSize * 0.22f;
+                PaddingRigth += (int)ASize;
+            }
+
             for (int i = 0; i < tbVirtChars.Text.Length; i++)
             {
                 Size NewSize;
@@ -279,8 +294,11 @@ namespace FNLRemapper
             return RemapList;
         }
 
-        FontStyle GetBestFamilyStyle(FontFamily Family)
+        FontStyle GetBestFamilyStyle(FontFamily Family, FontStyle Prior)
         {
+            if (Family.IsStyleAvailable(Prior))
+                return Prior;
+
             var Styles = new[] { FontStyle.Regular, FontStyle.Bold, FontStyle.Regular, FontStyle.Italic, FontStyle.Underline };
             foreach (var Style in Styles)
             {
