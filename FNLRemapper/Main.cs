@@ -45,7 +45,7 @@ namespace FNLRemapper
             BeginInvoke(new MethodInvoker(async () =>
             {
                 FontReader?.Dispose();
-                FontReader = File.Open(FontPath, FileMode.Open);
+                FontReader = File.Open(FontPath, FileMode.Open, FileAccess.Read);
                 FontInfo = await FNA.Open(FontReader, null);
 
                 pnFontMenu.Visible = true;
